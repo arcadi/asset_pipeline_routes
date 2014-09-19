@@ -12,7 +12,7 @@ module AssetPipelineRoutes
 
     def evaluate context, locals
       re = %r{
-        (?<=[^[[:word:]]])r(?<re>
+        (?<=[^[[:word:]]])route(?<re>
           \(
             (?:
               (?> [^()]+ )
@@ -23,7 +23,7 @@ module AssetPipelineRoutes
         )
       }x
       data.gsub re do |match|
-        str = match[2..-2]
+        str = match[6..-2]
         parts = str.split(',').map(&:strip).reject(&:blank?)
         route = parts.shift.to_sym
 
